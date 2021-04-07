@@ -80,7 +80,6 @@ Node *sortedMerge(Node *head1, Node *head2) {
     Node *temp2 = head2;
     if (!temp1) return head2;
     if (!temp2) return head1;
-    Node *ptr = NULL;
     if (temp1->data >= temp2->data) {
         temp2->next = sortedMerge(temp2->next, temp1);
         return temp2;
