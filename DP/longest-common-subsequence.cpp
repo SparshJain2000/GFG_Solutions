@@ -8,7 +8,7 @@ using namespace std;
 class Solution {
    public:
     //recursive
-    int lcs(int x, int y, string s1, string s2) {
+    int lcsrec(int x, int y, string s1, string s2) {
         // your code here
         if (x == 0 || y == 0) return 0;
         if (s1[x - 1] == s2[y - 1]) return 1 + lcs(x - 1, y - 1, s1, s2);
@@ -25,14 +25,14 @@ class Solution {
             dp[x][y] = max(util(x, y + 1, s1, s2), util(x + 1, y, s1, s2));
         return dp[x][y];
     }
-    int lcs(int x, int y, string s1, string s2) {
+    int lcsrecmemo(int x, int y, string s1, string s2) {
         // your code here
         dp = vector<vector<int>>(x + 1, vector<int>(y + 1, -1));
         return util(1, 1, s1, s2);
     }
     //iterative
     int lcs(int x, int y, string s1, string s2) {
-        dp = vector<vector<int>>(x + 1, vector<int>(y + 1, -1));
+        auto dp = vector<vector<int>>(x + 1, vector<int>(y + 1, -1));
         for (int i = 0; i <= x; i++) dp[i][0] = 0;
         for (int i = 0; i <= y; i++) dp[0][i] = 0;
         for (int i = 1; i <= x; i++)
@@ -42,6 +42,22 @@ class Solution {
                 else
                     dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
             }
+        //Printing LCS
+        int i = x, j = y;
+        string ans = "";
+        while (i > 0 && j > 0 && dp[i][j] != 0) {
+            if (s1[i - 1] == s2[j - 1]) {
+                ans = s1[i - 1] + ans;
+                i--;
+                j--;
+            } else {
+                if (dp[i - 1][j] > dp[i][j - 1])
+                    i--;
+                else
+                    j--;
+            }
+        }
+        cout << ans << endl;
         return dp[x][y];
     }
 };
@@ -60,3 +76,9 @@ int main() {
     return 0;
 }
 // } Driver Code Ends
+/*
+1
+3 4
+abcd
+abec
+*/
