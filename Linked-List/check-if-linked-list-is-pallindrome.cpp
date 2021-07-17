@@ -55,6 +55,17 @@ struct Node {
 */
 /*You are required to complete this method */
 #include <stack>
+Node *reverse(Node *head) {
+    Node *ptr = head;
+    Node *pre = NULL;
+    while (ptr) {
+        Node *temp = ptr->next;
+        ptr->next = pre;
+        pre = ptr;
+        ptr = temp;
+    }
+    return pre;
+}
 bool isPalindrome(Node *head) {
     Node *temp = head;
     stack<int> s;
@@ -64,6 +75,25 @@ bool isPalindrome(Node *head) {
         if (s.top() != temp->data) return false;
         s.pop();
         temp = temp->next;
+    }
+    return true;
+
+    //O(N) time O(1) space
+    if (!head || !head->next) return true;
+
+    Node *slow = head;
+    Node *fast = head;
+    Node *pre = NULL;
+    int n = 0;
+    while (slow && fast && fast->next) n++, pre = slow, slow = slow->next, fast = fast->next->next;
+
+    pre->next = NULL;
+    slow = reverse(slow);
+
+    while (slow && head) {
+        if (slow->data != head->data) return false;
+        slow = slow->next;
+        head = head->next;
     }
     return true;
 }
