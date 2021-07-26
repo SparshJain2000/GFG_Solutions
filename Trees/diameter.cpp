@@ -106,16 +106,13 @@ int height(Node* root) {
     return root ? max(height(root->left) + 1, height(root->right) + 1) : 0;
 }
 
-int util(Node* root, int& h) {
-    if (!root) {
-        h = 0;
-        return 0;
-    }
-    int lh = 0, rh = 0;
-    int ld = util(root->left, lh);
-    int rd = util(root->right, rh);
-    h = max(lh, rh) + 1;
-    return max(rh + lh + 1, max(ld, rd));
+int util(Node* root, int& ans) {
+    if (!root) return 0;
+    int l = util(root->left, ans);
+    int r = util(root->right, ans);
+    int temp = max(l, r) + 1;
+    ans = max(ans, max(temp, l + r + 1));
+    return temp;
 }
 /* Computes the diameter of binary tree with given root.  */
 int diameter(Node* root) {
@@ -125,6 +122,9 @@ int diameter(Node* root) {
     return max(height(root->left) + height(root->right) + 1, max(diameter(root->left), diameter(root->right)));
     */
     //Optimized soln
-    int h = 0;
-    return util(root, h);
+    // int h = 0;
+    // return util(root, h)
+    int ans = INT_MIN;
+    util(root, ans);
+    return ans - 1;
 }
