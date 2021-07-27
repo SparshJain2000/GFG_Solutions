@@ -17,23 +17,20 @@ struct Job {
 class Solution {
    public:
     vector<int> JobScheduling(Job arr[], int n) {
-        // your code here
-        sort(arr, arr + n, [](Job a, Job b) {
-            return a.profit > b.profit;
-        });
-        int days = 0, prof = 0;
-        unordered_map<int, bool> job_done;
+        sort(arr, arr + n, [](const Job &a, const Job &b) { return a.profit > b.profit; });
+        bool done[n] = {0};
+        int day = 0, profit = 0;
         for (int i = 0; i < n; i++) {
-            for (int j = arr[i].dead; j >= 1; j--) {
-                if (!job_done[j]) {
-                    days++;
-                    prof += arr[i].profit;
-                    job_done[j] = true;
+            for (int j = min(n, arr[i].dead - 1); j >= 0; j--) {
+                if (done[j] == false) {
+                    day += 1;
+                    profit += arr[i].profit;
+                    done[j] = true;
                     break;
                 }
             }
         }
-        return vector<int>({days, prof});
+        return vector<int>({day, profit});
     }
 };
 
