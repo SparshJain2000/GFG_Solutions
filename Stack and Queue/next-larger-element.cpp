@@ -17,14 +17,13 @@ vector<long long> nextLargerElement(vector<long long> arr, int n) {
     for (int i = n - 2; i >= 0; i--) {
         if (arr[i] < s.top()) {
             ans[i] = s.top();
-            s.push(arr[i]);
+
         } else {
             while (!s.empty() && arr[i] > s.top()) s.pop();
-            if (s.empty())
-                s.push(arr[i]);
-            else
-                ans[i] = s.top(), s.push(arr[i]);
+            if (!s.empty())
+                ans[i] = s.top();
         }
+        s.push(arr[i]);
     }
     return ans;
 }
