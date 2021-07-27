@@ -14,15 +14,23 @@ struct Node {
         left = right = NULL;
     }
 };
+
+// Function to Build Tree
 Node *buildTree(string str) {
-    if (str.length() == 0 || str[0] == 'N')
-        return NULL;
+    // Corner Case
+    if (str.length() == 0 || str[0] == 'N') return NULL;
+
+    // Creating vector of strings from input
+    // string after spliting by space
     vector<string> ip;
 
     istringstream iss(str);
-    for (string str; iss >> str;)
-        ip.push_back(str);
+    for (string str; iss >> str;) ip.push_back(str);
+
+    // Create the root of the tree
     Node *root = new Node(stoi(ip[0]));
+
+    // Push the root to the queue
     queue<Node *> queue;
     queue.push(root);
 
@@ -32,17 +40,30 @@ Node *buildTree(string str) {
         // Get and remove the front of the queue
         Node *currNode = queue.front();
         queue.pop();
+
+        // Get the current Node's value from the string
         string currVal = ip[i];
+
+        // If the left child is not null
         if (currVal != "N") {
+            // Create the left child for the current Node
             currNode->left = new Node(stoi(currVal));
+
+            // Push it to the queue
             queue.push(currNode->left);
         }
+
+        // For the right child
         i++;
-        if (i >= ip.size())
-            break;
+        if (i >= ip.size()) break;
         currVal = ip[i];
+
+        // If the right child is not null
         if (currVal != "N") {
+            // Create the right child for the current Node
             currNode->right = new Node(stoi(currVal));
+
+            // Push it to the queue
             queue.push(currNode->right);
         }
         i++;
@@ -50,7 +71,45 @@ Node *buildTree(string str) {
 
     return root;
 }
-int maxPathSum(Node *);
+
+// } Driver Code Ends
+/*
+struct Node
+{
+    int data;
+    struct Node* left;
+    struct Node* right;
+    
+    Node(int x){
+        data = x;
+        left = right = NULL;
+    }
+};
+*/
+// Max path sum b/w 2 leaves
+class Solution {
+   public:
+    int util(Node *root, int &ans) {
+        if (!root) return 0;
+        int l = util(root->left, ans);
+        int r = util(root->right, ans);
+        int temp;
+        if (root->right && root->left) {
+            ans = max(ans, l + r + root->data);
+            temp = max(l, r) + root->data;
+        } else
+            temp = root->data + (root->left ? l : r);
+        return temp;
+    }
+    int maxPathSum(Node *root) {
+        // code here
+        int ans = INT_MIN;
+        int temp = util(root, ans);
+        return ans == INT_MIN ? temp : ans;
+    }
+};
+
+// { Driver Code Starts.
 
 int main() {
     int tc;
@@ -59,26 +118,8 @@ int main() {
         string treeString;
         getline(cin, treeString);
         Node *root = buildTree(treeString);
-        cout << maxPathSum(root) << "\n";
+        Solution ob;
+        cout << ob.maxPathSum(root) << "\n";
     }
     return 0;
-}
-
-//Given a binary tree in which each node element contains a number.Find the maximum possible sum from one leaf node to another.
-int util(Node *root, int &res) {
-    if (!root) return 0;
-    if (!root->left && !root->right) return root->data;
-    int l = util(root->left, res);
-    int r = util(root->right, res);
-    if (root->left && root->right) {
-        res = max(res, l + r + root->data);
-        return max(l, r) + root->data;
-    }
-    return (!root->left) ? r + root->data : l + root->data;
-}
-int maxPathSum(Node *root) {
-    // code here
-    int res = INT_MIN;
-    util(root, res);
-    return res;
-}
+}   // } Driver Code Ends
