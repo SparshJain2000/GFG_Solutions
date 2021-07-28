@@ -48,9 +48,6 @@ int LCSof3(string s1, string s2, string s3, int x, int y, int z) {
                 if (s1[i - 1] == s2[j - 1] && s1[i - 1] == s3[k - 1])
                     dp[i][j][k] = 1 + dp[i - 1][j - 1][k - 1];
                 else {
-                    if (s1[i - 1] == s2[j - 1]) dp[i][j][k] = max(dp[i][j][k], dp[i - 1][j - 1][k]);
-                    if (s1[i - 1] == s3[k - 1]) dp[i][j][k] = max(dp[i][j][k], dp[i - 1][j][k - 1]);
-                    if (s3[k - 1] == s2[j - 1]) dp[i][j][k] = max(dp[i][j][k], dp[i][j - 1][k - 1]);
                     dp[i][j][k] = max(dp[i][j][k], dp[i][j][k - 1]);
                     dp[i][j][k] = max(dp[i][j][k], dp[i][j - 1][k]);
                     dp[i][j][k] = max(dp[i][j][k], dp[i - 1][j][k]);
