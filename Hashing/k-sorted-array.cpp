@@ -11,10 +11,10 @@ class Solution {
         map<int, int> mp;
         for (int i = 0; i < n; i++) mp[arr[i]] = i;
         int i = 0;
-        for (auto p : mp) {
-            if (abs(p.second - i) > k) return "No";
-            i++;
-        }
+        for (auto p : mp)
+            if (abs(p.second - i++) > k)
+                return "No";
+
         return "Yes";
     }
 };
