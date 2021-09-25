@@ -1,3 +1,4 @@
 *.exe
 tempCodeRunnerFile.cpp
 .vscode
+temp.*
