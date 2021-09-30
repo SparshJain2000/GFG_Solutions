@@ -81,22 +81,7 @@ int main(void) {
     }
     return 0;
 }
-// } Driver Code Ends
-/* Node structure  used in the program
 
-struct Node{
-	int data;
-	struct Node * next;
-	struct Node * bottom;
-	
-	Node(int x){
-	    data = x;
-	    next = NULL;
-	    bottom = NULL;
-	}
-	
-};
-*/
 
 Node *flatten(Node *root) {
     Node *temp = root;
