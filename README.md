@@ -8,7 +8,7 @@ A repository of GeeksForGeeks solutions in C++ .
 
 ```or```
 
-👯 Clone the repo 
+👯 Clone the repository
 ```
 git clone https://github.com/SparshJain2000/GFG_Solutions
 ```
@@ -17,15 +17,15 @@ git clone https://github.com/SparshJain2000/GFG_Solutions
 
 🍴 Fork the repository
 
-👯 Clone the forked repo 
+👯 Clone the forked repository 
 
-📝 Change it / add your code ,
+📝 Change it / add your code
 
 ✔️ Do a "pull request"
 
 ## Support
 
-Give a 🌟 to this repo if it helped you a bit .
+Give a 🌟 to this repo if it helped you a bit.
 
 Connect with me
 
