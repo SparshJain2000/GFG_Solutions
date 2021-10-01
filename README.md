@@ -1,6 +1,6 @@
 # GFG_Solutions
 
-A repository of GeeksForGeeks solutions in C++ .
+A repository of GeeksForGeeks solutions in C++
 
 ## Installing
 
